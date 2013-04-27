@@ -58,3 +58,8 @@ BUILD_A_SCHEMA(${SC_SOURCE_DIR}/test/misc/select_segfault_210e3.exp)
 add_test( test_select_segfault ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/p21read_sdai_select_segfault_210e3
                                ${CMAKE_CURRENT_SOURCE_DIR}/select_segfault_210e3.stp )
 set_tests_properties( test_select_segfault PROPERTIES DEPENDS build_cpp_sdai_select_segfault_210e3 LABELS exchange_file WILL_FAIL TRUE )
+
+BUILD_A_SCHEMA(${SC_SOURCE_DIR}/test/unitary_schemas/select_segfault_2.exp)
+add_test( test_select_segfault_2 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/p21read_sdai_select_segfault_2
+                               ${CMAKE_CURRENT_SOURCE_DIR}/select_segfault_2.stp )
+set_tests_properties( test_select_segfault_2 PROPERTIES DEPENDS build_cpp_sdai_select_segfault_2 LABELS exchange_file )
