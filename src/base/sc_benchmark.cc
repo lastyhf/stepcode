@@ -46,6 +46,7 @@ benchVals getMemAndTime( ) {
     vals.userMilliseconds = ( utime * 1000 ) / sysconf( _SC_CLK_TCK );
     vals.sysMilliseconds  = ( stime * 1000 ) / sysconf( _SC_CLK_TCK );
 #elif defined(__APPLE__)
+    //TODO : get memory usage at runtime on APPLE
     // http://stackoverflow.com/a/1911863/382458
 #elif defined(__WIN32__)
     // http://stackoverflow.com/a/282220/382458 and http://stackoverflow.com/a/64166/382458
