@@ -628,6 +628,7 @@ void ATTRsign_access_methods( Variable a, FILE * file ) {
     generate_attribute_func_name( a, attrnm );
 
     strncpy( ctype, AccessType( t ), BUFSIZ );
+    ctype[BUFSIZ-1] = '\0';
     fprintf( file, "        %s %s() const;\n", ctype, attrnm );
     fprintf( file, "        void %s (const %s x);\n\n", attrnm, ctype );
     return;
@@ -660,6 +661,7 @@ void ATTRprint_access_methods_get_head( const char * classnm, Variable a,
     /* ///////////////////////////////////////////////// */
 
     strncpy( ctype, AccessType( t ), BUFSIZ );
+    ctype[BUFSIZ-1] = '\0';
     fprintf( file, "\n%s %s::%s( ) const ", ctype, classnm, funcnm );
     return;
 }
@@ -689,6 +691,7 @@ void ATTRprint_access_methods_put_head( CONST char * entnm, Variable a, FILE * f
     generate_attribute_func_name( a, funcnm );
 
     strncpy( ctype, AccessType( t ), BUFSIZ );
+    ctype[BUFSIZ-1] = '\0';
     fprintf( file, "\nvoid\n%s::%s (const %s x)\n\n", entnm, funcnm, ctype );
 
     return;
@@ -1064,7 +1067,7 @@ void ENTITYhead_print( Entity entity, FILE * file, Schema schema ) {
     Entity super = 0;
 
     strncpy( entnm, ENTITYget_classname( entity ), BUFSIZ );
-
+    entnm[BUFSIZ-1] = '\0';
     fprintf( file, "\nclass %s  :  ", entnm );
 
     /* inherit from either supertype entity class or root class of
@@ -1221,6 +1224,7 @@ void MemberFunctionSign( Entity entity, Linked_List neededAttr, FILE * file ) {
     char entnm [BUFSIZ];
 
     strncpy( entnm, ENTITYget_classname( entity ), BUFSIZ ); /*  assign entnm  */
+    entnm[BUFSIZ-1] = '\0';
 
     fprintf( file, "  public: \n" );
 
@@ -2696,6 +2700,7 @@ void TYPEenum_inc_print( const Type type, FILE * inc ) {
 
     /*  constructors    */
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
+    tdnm[BUFSIZ-1] = '\0';
     fprintf( inc, "  public:\n        %s (const char * n =0, Enum"
              "TypeDescriptor *et =%s);\n", n, tdnm );
     fprintf( inc, "        %s (%s e, EnumTypeDescriptor *et =%s)\n"
@@ -2775,6 +2780,7 @@ void TYPEenum_lib_print( const Type type, FILE * f ) {
     DICTdo_type_init( ENUM_TYPEget_items( type ), &de, OBJ_ENUM );
     while( 0 != ( expr = ( Expression )DICTdo( &de ) ) ) {
         strncpy( c_enum_ele, EnumCElementName( type, expr ), BUFSIZ );
+        c_enum_ele[BUFSIZ-1] = '\0';
         fprintf( f, "  case %s:  return \"%s\";\n",
                  c_enum_ele,
                  StrToUpper( EXPget_name( expr ) ) );
@@ -3028,12 +3034,14 @@ void TYPEprint_typedefs( Type t, FILE * classes ) {
             // classes file - after all the actual enum's.  They must be
             // printed last since they depend on the others.) */
             strncpy( nm, TYPEget_ctype( t ), BUFSIZ );
+            nm[BUFSIZ-1] = '\0';
             fprintf( classes, "class %s_agg;\n", nm );
         }
     } else if( TYPEis_select( t ) ) {
         if( !TYPEget_head( t ) ) {
             /* Same comment as above. */
             strncpy( nm, SelectName( TYPEget_name( t ) ), BUFSIZ );
+            nm[BUFSIZ-1] = '\0';
             fprintf( classes, "class %s;\n", nm );
             fprintf( classes, "typedef %s * %s_ptr;\n", nm, nm );
             fprintf( classes, "class %s_agg;\n", nm );
@@ -3057,6 +3065,7 @@ void TYPEprint_typedefs( Type t, FILE * classes ) {
             // fundamental types and their aggregates, and for 2D aggregates(aggre-
             // gates of aggregates) of enum's and selects. */
             strncpy( nm, ClassName( TYPEget_name( t ) ), BUFSIZ );
+            nm[BUFSIZ-1] = '\0';
             fprintf( classes, "typedef %s         %s;\n", TYPEget_ctype( t ), nm );
             if( TYPEis_aggregate( t ) ) {
                 fprintf( classes, "typedef %s *         %sH;\n", nm, nm );
@@ -3213,7 +3222,7 @@ void TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
     Type i;
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
+    tdnm[BUFSIZ-1] = '\0';
     /* define type descriptor pointer */
     /*  in source - declare the real definition of the pointer */
     /*  i.e. in the .cc file                                   */
@@ -3288,7 +3297,7 @@ static void printEnumCreateBody( FILE * lib, const Type type ) {
     char tdnm[BUFSIZ];
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
+    tdnm[BUFSIZ-1] = '\0';
     fprintf( lib, "\nSDAI_Enum *\ncreate_%s ()\n{\n", nm );
     fprintf( lib, "    return new %s( \"\", %s );\n}\n\n", nm, tdnm );
 }
@@ -3305,7 +3314,7 @@ static void printEnumAggrCrBody( FILE * lib, const Type type ) {
     char tdnm[BUFSIZ];
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
+    tdnm[BUFSIZ-1] = '\0';
     fprintf( lib, "\nSTEPaggregate *\ncreate_%s_agg ()\n{\n", n );
     fprintf( lib, "    return new %s_agg( %s );\n}\n", n, tdnm );
 }
