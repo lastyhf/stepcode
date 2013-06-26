@@ -80,7 +80,7 @@ void ComplexList::buildList()
     }
 
     // Add first node based on supertype:
-    list = new EntNode( ( ( SimpleList * )head->childList )->name );
+    list = new EntNode( (dynamic_cast< SimpleList *>(head->childList) )->name );
 
     // Recursively add all descendents:
     while( sibling ) {
@@ -104,7 +104,7 @@ void ComplexList::addChildren( EntList * ent )
     EntNode * prev = list, *prev2 = NULL, *newnode;
 
     if( ent->multiple() ) {
-        child = ( ( MultList * )ent )->childList;
+        child = ( dynamic_cast< MultList * >(ent) )->childList;
         while( child ) {
             addChildren( child );
             child = child->next;

@@ -786,7 +786,7 @@ int SetErrOnNull( const char * attrValue, ErrorDescriptor * error ) {
     char scanBuf[BUFSIZ];
     scanBuf[0] = '\0';
 
-    int numFound = sscanf( ( char * )attrValue, " %s", scanBuf );
+    int numFound = sscanf( ( char * )attrValue, " %50s", scanBuf );
     if( numFound == EOF ) {
         error->GreaterSeverity( SEVERITY_INCOMPLETE );
         return 1;
@@ -819,8 +819,8 @@ Severity EntityValidLevel( const char * attrValue, // string contain entity ref
     MgrNode * mn = 0;
 
     // check for both forms:  #id or id
-    int found1 = sscanf( ( char * )attrValue, " #%d %s", &fileId, tmp );
-    int found2 = sscanf( ( char * )attrValue, " %d %s", &fileId, tmp );
+    int found1 = sscanf( ( char * )attrValue, " #%20d %50s", &fileId, tmp );
+    int found2 = sscanf( ( char * )attrValue, " %20d %50s", &fileId, tmp );
 
     if( ( found1 > 0 ) || ( found2 > 0 ) ) {
         if( ( found1 == 2 ) || ( found2 == 2 ) ) {
