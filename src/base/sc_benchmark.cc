@@ -51,9 +51,9 @@ benchVals getMemAndTime( ) {
     // http://stackoverflow.com/a/282220/382458 and http://stackoverflow.com/a/64166/382458
     PROCESS_MEMORY_COUNTERS MemoryCntrs;
     FILETIME CreationTime, ExitTime, KernelTime, UserTime;
-    long page_size_kb = 1024;
 
     if( GetProcessMemoryInfo( GetCurrentProcess(), &MemoryCntrs, sizeof( MemoryCntrs ) ) ) {
+        long page_size_kb = 1024;
         vals.physMemKB = MemoryCntrs.PeakWorkingSetSize / page_size_kb;
         vals.virtMemKB = MemoryCntrs.PeakPagefileUsage / page_size_kb;
     } else {

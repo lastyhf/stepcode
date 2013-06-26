@@ -102,7 +102,6 @@ void ComplexList::addChildren( EntList * ent )
     EntList * child;
     char * nm;
     EntNode * prev = list, *prev2 = NULL, *newnode;
-    int comp = 0;
 
     if( ent->multiple() ) {
         child = ( ( MultList * )ent )->childList;
@@ -111,7 +110,9 @@ void ComplexList::addChildren( EntList * ent )
             child = child->next;
         }
     } else {
-        nm = ( ( SimpleList * )ent )->name;
+        int comp = 0;
+
+        nm = ( dynamic_cast< SimpleList * >(ent) )->name;
         while( prev != NULL && ( comp = strcmp( prev->name, nm ) ) < 0 ) {
             prev2 = prev;
             prev = prev->next;
@@ -171,7 +172,7 @@ int ComplexList::matches( EntNode * ents )
  * when the schema was read; FALSE otherwise.
  */
 {
-    MatchType retval, otherChoices = NEWCHOICE;
+    MatchType retval;
     int result = FALSE;
 
     // First check if this ComplexList at least contains all the nodes of ents.
@@ -195,6 +196,7 @@ int ComplexList::matches( EntNode * ents )
             // hitMultNodes()).
             result = TRUE;
         } else if( retval >= MATCHSOME ) {
+            MatchType otherChoices = NEWCHOICE;
             // We have a partial answer.  Check if other solutions exist (i.e.,
             // if there are OR's with other choices):
             while( otherChoices == NEWCHOICE ) {

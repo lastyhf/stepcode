@@ -37,7 +37,6 @@ int main( int argc, char ** argv ) {
     FILE * in, *out;
     void * judy;
     unsigned int len;
-    unsigned int idx;
 
     if( argc > 1 ) {
         in = fopen( argv[1], "rb" );
@@ -94,6 +93,7 @@ int main( int argc, char ** argv ) {
     if( cell ) do {
             judyvalue key[16 / JUDY_key_size];
             len = judy_key( judy, ( void * )key, 0 );
+            unsigned int idx;
             for( idx = 0; idx < *cell; idx++ ) {       // spit out duplicates
 #if JUDY_key_size == 4
                 fprintf( out, "%.8X", key[0] );

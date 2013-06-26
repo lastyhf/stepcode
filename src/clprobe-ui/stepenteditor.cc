@@ -713,9 +713,8 @@ int seeAttrRowList::SetCurRow( int index ) {
     if( debug_level >= PrintFunctionTrace ) {
         cout << "seeAttrRowList::SetCurRow()\n";
     }
-    int i;
-
     if( currentRow && index > 0 && index <= rowCount ) {
+        int i;
         currentRow->NameField()->Highlight( false );
         currentRow->TypeField()->Highlight( false );
         for( i = 1, currentRow = head; i < index;
@@ -756,13 +755,14 @@ int seeAttrRowList::Find( seeAttrRow * r ) {
         cout << "seeAttrRowList::Find()\n";
     }
     seeAttrRow * ptr;
-    int i;
 
     if( r == nil || head == nil ) {
         return ( 0 );
     } else if( r == head ) {
         return ( 1 );
     } else {
+            int i;
+
         for( ptr = head->next, i = 2;
                 ptr != r && ptr != head;
                 ptr = ptr->next, i++

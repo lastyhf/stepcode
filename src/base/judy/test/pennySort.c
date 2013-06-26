@@ -47,7 +47,6 @@ int main( int argc, char ** argv ) {
     FILE * in, *out;
     void * judy;
     unsigned int len;
-    unsigned int idx;
 #ifdef ASKITIS
     char * askitis;
     int prev, off;
@@ -213,6 +212,7 @@ int main( int argc, char ** argv ) {
     cell = judy_strt( judy, NULL, 0 );
 
     if( cell ) do {
+            unsigned int idx;
             len = judy_key( judy, buff, sizeof( buff ) );
             for( idx = 0; idx < *cell; idx++ ) {       // spit out duplicates
                 fwrite( buff, len, 1, out );

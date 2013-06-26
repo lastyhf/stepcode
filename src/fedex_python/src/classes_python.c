@@ -605,8 +605,7 @@ LIBdescribe_entity( Entity entity, FILE * file, Schema schema ) {
     Linked_List list;
     int num_parent = 0;
     int num_derived_inverse_attr = 0;
-    int index_attribute = 0;
-
+    
     /* class name
      need to use new-style classes for properties to work correctly
     so class must inherit from object */
@@ -702,7 +701,7 @@ LIBdescribe_entity( Entity entity, FILE * file, Schema schema ) {
         // if inheritance, first write the inherited parameters
         list = ENTITYget_supertypes( entity );
         num_parent = 0;
-        index_attribute = 0;
+        int index_attribute = 0;
         if( ! LISTempty( list ) ) {
             LISTdo( list, e, Entity )
             /*  search attribute names for superclass */
@@ -852,8 +851,6 @@ get_local_attribute_number( Entity entity ) {
 
 int
 get_attribute_number( Entity entity ) {
-    int i = 0;
-    int found = 0;
     Linked_List local, complete;
     complete = ENTITYget_all_attributes( entity );
     local = ENTITYget_attributes( entity );
@@ -861,6 +858,8 @@ get_attribute_number( Entity entity ) {
     LISTdo( local, a, Variable )
     /*  go to the child's first explicit attribute */
     if( ( ! VARget_inverse( a ) ) && ( ! VARis_derived( a ) ) )  {
+        int i = 0;
+        int found = 0;
         LISTdo( complete, p, Variable )
         /*  cycle through all the explicit attributes until the
         child's attribute is found  */
@@ -1113,6 +1112,7 @@ CASEout( struct Case_Statement_ *c, int level, FILE * file ) {
     /* pass 2: print them */
     LISTdo( c->cases, ci, Case_Item )
     if( ci->labels ) {
+        int if_number = 0;
         LISTdo( ci->labels, label, Expression )
         /* print label(s) */
         //indent2 = level + exppp_continuation_indent;
@@ -2181,7 +2181,6 @@ TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
          base [BUFSIZ],
          nm [BUFSIZ];
     Type i;
-    int where_rule_number = 0;
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
 
@@ -2195,6 +2194,7 @@ TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
     }
 
     if( TYPEget_RefTypeVarNm( type, typename_buf, schema ) ) {
+        int where_rule_number = 0;
         char * output = FundamentalType( type, 0 );
         if( TYPEis_aggregate( type ) ) {
             fprintf( files->lib, "%s = ", TYPEget_name( type ) );

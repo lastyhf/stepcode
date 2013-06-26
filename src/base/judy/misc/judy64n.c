@@ -1859,7 +1859,6 @@ JudySlot *cell;
 FILE *in, *out;
 void *judy;
 unsigned int len;
-unsigned int idx;
 #ifdef ASKITIS
 char *askitis;
 int prev, off;
@@ -2028,7 +2027,7 @@ time_t start[1], stop[1];
     fprintf(stderr, "%" PRIuint " memory used\n", MaxMem);
 
     cell = judy_strt (judy, NULL, 0);
-
+    unsigned int idx;
     if( cell ) do {
     judyvalue key[16/JUDY_key_size];
         len = judy_key(judy, (void *)key, 0);

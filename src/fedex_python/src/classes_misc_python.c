@@ -500,14 +500,14 @@ ENTITYput_superclass( Entity entity ) {
 #define ENTITYget_type(e)  ((e)->u.entity->type)
 
     Linked_List l = ENTITYget_supertypes( entity );
-    Entity super = 0;
-    Entity ignore = 0;
-    int super_cnt = 0;
     EntityTag tag;
 
-    Linked_List list = 0;
-
     if( ! LISTempty( l ) ) {
+        Entity super = 0;
+        Entity ignore = 0;
+        int super_cnt = 0;
+
+        Linked_List list = 0;
 
         if( multiple_inheritance ) {
             list = ENTITYget_supertypes( entity );

@@ -1504,7 +1504,6 @@ int Probe::seeEnumEdit( StepEntityEditor * see ) {
         case BOOLEAN_TYPE: {
             ListItemChooser * lic = new ListItemChooser( new ButtonState( 0 ) );
             int numElements = currAttr->ptr.e->no_elements();
-            int i;
             int currValue = currAttr->ptr.e->asInt();
             std::string tmp;
 
@@ -1513,6 +1512,7 @@ int Probe::seeEnumEdit( StepEntityEditor * see ) {
                 lic->Append( "T" );
                 lic->Append( "U" );
             } else {
+                int i;
                 for( i = 0; i < numElements; i++ ) {
                     currAttr->ptr.e->put( i );
                     lic->Append( currAttr->ptr.e->asStr( tmp ) );

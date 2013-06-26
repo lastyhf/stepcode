@@ -347,7 +347,7 @@ class ComplexList {
     public:
         ComplexList( AndList * alist = NULL ) : list( 0 ), head( alist ), next( 0 ),
             abstract( 0 ), dependent( 0 ),
-            multSupers( 0 ) {}
+            multSupers( 0 ), maxlevel( 0 ) {}
         ComplexList( Entity, ComplexCollect * );
         ~ComplexList();
         void buildList();

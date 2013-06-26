@@ -124,9 +124,6 @@ void seTypeListDisplay::CreateButtons() {
 
 void seTypeListDisplay::Update() {
     int value = 0;
-    int ignoreCase = 0;
-    int startIndex;
-    int indexFound;
 
     entityTypeListButSt->GetValue( value );
 //    if(value == '\r') {
@@ -156,6 +153,10 @@ void seTypeListDisplay::Update() {
             entityTypeListButSt->Attach( this );
         }
         switch( value ) {
+            int ignoreCase = 0;
+            int startIndex;
+            int indexFound;
+
             case TLD_FORWARD_SEARCH :
                 caseButtonButSt->GetValue( ignoreCase );
 

@@ -1049,10 +1049,11 @@ void ENTITYresolve_expressions( Entity e ) {
 
 
 void ENTITYcheck_missing_supertypes( Entity ent ) {
-    int found;
 
     /* Make sure each of my subtypes lists me as a supertype */
     LISTdo( ent->u.entity->subtypes, sub, Entity )
+    int found;
+
     found = false;
     LISTdo( sub->u.entity->supertypes, sup, Entity )
     if( sup == ent ) {
@@ -1317,7 +1318,6 @@ static void ENTITYresolve_subtypes( Entity e ) {
 }
 
 void ENTITYresolve_types( Entity e ) {
-    int i;
     Qualified_Attr * ref;
     Variable attr;
     int failed = 0;
@@ -1343,7 +1343,7 @@ void ENTITYresolve_types( Entity e ) {
     /* where "entity" represents a supertype (only, I believe) */
 
     LISTdo( e->u.entity->unique, unique, Linked_List )
-    i = 0;
+    int i = 0;
     LISTdo_links( unique, reflink )
     /* skip first which is always the label (or NULL if no label) */
     i++;

@@ -919,7 +919,6 @@ Severity STEPfile::CreateScopeInstances( istream & in, SDAI_Application_instance
     SDAI_Application_instance * se;
     std::string tmpbuf;
     char c;
-    int exportid;
     std::vector< SDAI_Application_instance_ptr > inscope;
     std::string keywd;
 
@@ -984,6 +983,7 @@ Severity STEPfile::CreateScopeInstances( istream & in, SDAI_Application_instance
         in.get( c );
         c = ',';
         while( c == ',' ) {
+            int exportid;
             ReadTokenSeparator( in );
             in.get( c );
             if( c != '#' )  {  } //ERROR
@@ -1078,7 +1078,6 @@ Severity STEPfile::ReadScopeInstances( istream & in ) {
     SDAI_Application_instance * se;
     std::string tmpbuf;
     char c;
-    int exportid;
     std::string keywd;
     std::string cmtStr;
 
@@ -1128,6 +1127,7 @@ Severity STEPfile::ReadScopeInstances( istream & in ) {
         in.get( c );
         c = ',';
         while( c == ',' ) {
+            int exportid;
             ReadTokenSeparator( in );
             in.get( c );
             in >> exportid;

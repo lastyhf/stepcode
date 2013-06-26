@@ -180,9 +180,6 @@ void seInstListDisplay::CreateButtons() {
 
 void seInstListDisplay::Update() {
     int value = 0;
-    int ignoreCase = 0;
-    int startIndex;
-    int indexFound;
 
     entityInstanceListButSt->GetValue( value );
 //    if(value == '\r') {
@@ -212,7 +209,10 @@ void seInstListDisplay::Update() {
             entityInstanceListButSt->Attach( this );
         }
         switch( value ) {
+            int indexFound;
+            int startIndex;
             case ILD_FORWARD_SEARCH:
+                int ignoreCase = 0;
                 caseButtonButSt->GetValue( ignoreCase );
 
                 startIndex = entityInstanceList->Selection() + 1;

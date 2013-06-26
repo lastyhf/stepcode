@@ -282,7 +282,6 @@ void ComplexList::addImplicitSubs( Linked_List subs, ComplexCollect * col )
 {
     EntNode node( ( char * )"" );
     // Temp var - used to check if this already contains certain values.
-    int none_yet = TRUE;
     AndOrList * ao = 0;
 
     LISTdo( subs, subEnt, Entity )
@@ -293,6 +292,8 @@ void ComplexList::addImplicitSubs( Linked_List subs, ComplexCollect * col )
         cout << "  Adding implicit subtype " << ENTITYget_name( subEnt )
              << endl;
 #endif
+        int none_yet = TRUE;
+    
         if( none_yet ) {
             // If this is the first one, replace the previous subtype list
             // with an ANDOR.

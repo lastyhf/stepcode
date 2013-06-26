@@ -291,17 +291,16 @@ EntityDescBlockList::PrependNode( EntityDescriptorBlock * edb ) {
 
 char *
 StepEntityDescriptor::LongestAttrInBlock( const EntityDescriptor * entity ) {
-    int longestLen = 0;
     static char longestAttrStr[BUFSIZ];
     longestAttrStr[0] = 0;
-
     const char * attrStr;
-    int attrLen;
 
     if( entity ) {
         AttrDescLinkNode * attrPtr =
             ( AttrDescLinkNode * )( ( ( EntityDescriptor * )entity )->ExplicitAttr().GetHead() );
         std::string tmp;
+        int longestLen = 0;
+        int attrLen;
         while( attrPtr != 0 ) {
             attrStr = attrPtr->AttrDesc()->AttrExprDefStr( tmp );
             attrLen = strlen( attrStr );
@@ -355,19 +354,21 @@ StepEntityDescriptor::FindLongestAttribute() {
 
 char *
 StepEntityDescriptor::LongestSubtNameInBlock( const EntityDescriptor * entity ) {
-    int longestLen = 0;
     static char longestSubtypeStr[BUFSIZ];
     longestSubtypeStr[0] = 0;
 
     const char * subtypeStr;
-    int subtypeLen;
+
 
     if( entity ) {
         EntityDescLinkNode * subtypePtr =
             ( EntityDescLinkNode * )( ( ( EntityDescriptor * )entity )->Subtypes().GetHead() );
-        while( subtypePtr != 0 ) {
+            int subtypeLen;
+            int longestLen = 0;
+            while( subtypePtr != 0 ) {
             subtypeStr = subtypePtr->EntityDesc()->Name();
             subtypeLen = strlen( subtypeStr );
+
             if( subtypeLen > longestLen ) {
                 strcpy( longestSubtypeStr, subtypeStr );
                 longestLen = subtypeLen;
