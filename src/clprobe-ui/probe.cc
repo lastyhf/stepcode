@@ -220,7 +220,7 @@ void Probe::Run() {
 //////////////////////////////////
 
 int Probe::ChooseAutoSaveFile() {
-    static Interactor * root;
+    //static Interactor * root; /*This is never used */
 
     static MyFileChooser * writeChooser;
 
@@ -246,12 +246,12 @@ int Probe::ChooseAutoSaveFile() {
             ( const char * )dir, rows, cols, " Select " );
 //IVBUG writeChooser->SetName("Write Backup File Selector");
 //IVBUG writeChooser->SetIconName("WBFS");
-        root = InsertInteractor( writeChooser, Center );
+        //root = InsertInteractor( writeChooser, Center );
         if( restrict[0] == '1' ) {
             writeChooser->Restrict( 1 );
         }
     } else {
-        root = InsertInteractor( writeChooser, Center );
+        //root = InsertInteractor( writeChooser, Center );
 //  writeChooser->Map(root, true);
     }
     writeChooser->UpdateDir();
@@ -485,7 +485,7 @@ void Probe::InitEntityTypeList() {
 
     entityTypeList = new seTypeListDisplay();
 
-    Shape * s = entityTypeList->GetShape();
+//    Shape * s = entityTypeList->GetShape(); /*This value is never used */
 //    worldPtr->Align(BottomRight, s->width, s->height, l, b);
 //    worldPtr->InsertToplevel(entityTypeList, this, l, b, BottomRight);
     worldPtr->InsertToplevel( entityTypeList, this, ( int )( worldPtr->width() ), 0,
@@ -652,7 +652,7 @@ Interactor * Probe::ProbeBody() {
         cout << "Probe::ProbeBody()\n";
     }
     static char schemaName[BUFSIZ];
-    int count = 0, length = 0;
+    int count = 0;
     const SchemaDescriptor * schemaDesc;
 
     registry -> ResetSchemas();
@@ -1118,7 +1118,7 @@ void Probe::seeReplicate( StepEntityEditor * see ) {
     /*    ErrorMsg("SEE replicate.");*/
     STEPentity * seExist = see->GetStepEntity();
     /*    EntityDescriptor *ed = see->GetStepEntity()->EntityDescriptor;*/
-    EntityDescriptor * ed = see->GetStepEntity()->eDesc;
+//    EntityDescriptor * ed = see->GetStepEntity()->eDesc;
 //    STEPentity *se = ed->NewSTEPentity();
     STEPentity * seNew;
 //    if(seNew = ed->NewSTEPentity()){
@@ -1490,7 +1490,7 @@ int Probe::seeEnumEdit( StepEntityEditor * see ) {
     }
     /*    ErrorMsg("SEE list enumeration.");*/
 
-    char fileIdStr[20];
+//    char fileIdStr[20];
 
     seeAttrRow * attrRow = see->AttrRowList()->CurRow();
 
@@ -1764,7 +1764,7 @@ void ShellSort( const char ** a, int count ) {
 }
 
 void Probe::ListEntityTypesCmd() {
-    char * entityName = 0;
+    //char * entityName = 0;
 
     if( debug_level >= PrintFunctionTrace ) {
         cout << "Probe::ListEntityTypesCmd()\n";
@@ -1985,7 +1985,7 @@ void Probe::ModifyInstanceCmd() {
         MgrNode * mn = instMgr -> GetMgrNode( index );
 
         sedlModify( mn, index );
-        DisplayNode * dn = mn->displayNode();
+//       DisplayNode * dn = mn->displayNode();
 // dangerous because it messes up the execution of Probe::ExecuteInstanceCmds()
 //  if(dn)
 //      dn->Remove(); // remove from list of intended actions for CmdMgr
@@ -2009,7 +2009,7 @@ void Probe::ViewInstanceCmd() {
         MgrNode * mn = instMgr -> GetMgrNode( index );
 
         sedlView( mn, index );
-        DisplayNode * dn = mn->displayNode();
+//        DisplayNode * dn = mn->displayNode();
 // dangerous because it messes up the execution of Probe::ExecuteInstanceCmds()
 //  if(dn)
 //      dn->Remove(); // remove from list of intended actions for CmdMgr
@@ -2034,7 +2034,7 @@ void Probe::CloseInstanceCmd() {
 
         sedlClose( mn, index );
         /*  ErrorMsg("Close Instance");*/
-        DisplayNode * dn = mn->displayNode();
+//        DisplayNode * dn = mn->displayNode();
 // dangerous because it messes up the execution of Probe::ExecuteInstanceCmds()
 //  if(dn)
 //      dn->Remove(); // remove from list of intended actions for CmdMgr

@@ -1298,7 +1298,6 @@ int StepEntityEditor::ExecuteTermChar() {
 ///////////////////////////////////////////////////////////////////////////////
 
 int StepEntityEditor::ExecuteCommand( int v ) {
-    int rc = 0;
     if( debug_level >= PrintFunctionTrace ) {
         cout << "StepEntityEditor::ExecuteCommand()\n";
     }
@@ -1729,9 +1728,9 @@ void StepEntityEditor::EditRows() {
 }
 
 void PrintEvent( Event * e ) {
-    Interactor * target = e->target;
+    //Interactor * target = e->target;
     EventType et = e->eventType;
-    char * ks = e->keystring;
+    //char * ks = e->keystring;
 }
 
 /*
@@ -2507,7 +2506,6 @@ void HeaderEntityEditor::InsertButtons() {
 }
 
 int HeaderEntityEditor::ExecuteCommand( int v ) {
-    int rc = 0;
     if( debug_level >= PrintFunctionTrace ) {
         cout << "StepEntityEditor::ExecuteCommand()\n";
     }

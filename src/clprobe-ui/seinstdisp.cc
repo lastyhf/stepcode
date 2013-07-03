@@ -284,7 +284,7 @@ void seInstListDisplay::CheckButtons() {
     buttonsButSt->Detach( this );
     buttonsButSt->SetValue( 0 );
     buttonsButSt->Attach( this );
-    int index = 0;
+//    int index = 0;
     switch( value ) {
         case ILD_COMPLETE_ACTION :
             dp->SaveComplInstanceCmd();

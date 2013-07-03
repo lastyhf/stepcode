@@ -249,7 +249,6 @@ void EntityDescriptorBlock::Update() {
                 index--;
                 attrPtr = ( AttrDescLinkNode * )attrPtr->NextNode();
             }
-            std::string tmp;
             std::string tmp2;
             strncpy( attrStr,
                      attrPtr->AttrDesc()->DomainType()->TypeString( tmp2 ),

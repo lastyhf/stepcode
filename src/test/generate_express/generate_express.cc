@@ -25,8 +25,7 @@ main() {
 
     const SchemaDescriptor * schema = 0;
 
-    SchemaDescriptor * schema2 = 0;
-    schema = ( SchemaDescriptor * )registry->FindSchema( "Example_Schema" );
+    Schema = ( SchemaDescriptor * )registry->FindSchema( "Example_Schema" );
     EntityDescriptor * ed = ( EntityDescriptor * )registry->FindEntity( "Circle" );
     Uniqueness_rule_ptr ur = new Uniqueness_rule;
     ur->comment_( "(* Hi Dave *)\n" );

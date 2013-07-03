@@ -117,7 +117,7 @@ int main( int argc, char * argv[] ) {
 
     dp = new Probe();
 
-    Shape * s = dp->GetShape();
+//    Shape * s = dp->GetShape();
 //    Coord l, b;
 //IVBUG    world->Align(TopCenter, s->width, s->height, l, b);
     // insert main probe window at the TopRight of the root window
