@@ -397,7 +397,7 @@ ENTITYhead_print( Entity entity, FILE * file, Schema schema ) {
     Entity super = 0;
 
     strncpy( entnm, ENTITYget_classname( entity ), BUFSIZ );
-
+    entnm[BUFSIZ-1] = '\0';
     /* DAS print all the attr descriptors and inverse attr descriptors for an
        entity as extern defs in the .h file. */
     LISTdo( ENTITYget_attributes( entity ), v, Variable )
