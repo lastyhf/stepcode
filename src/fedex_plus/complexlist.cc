@@ -102,16 +102,17 @@ void ComplexList::addChildren( EntList * ent )
     EntList * child;
     char * nm;
     EntNode * prev = list, *prev2 = NULL, *newnode;
-    int comp = 0;
 
     if( ent->multiple() ) {
-        child = ( ( MultList * )ent )->childList;
+        child = ( dynamic_cast< MultList * >(ent) )->childList;
         while( child ) {
             addChildren( child );
             child = child->next;
         }
     } else {
-        nm = ( ( SimpleList * )ent )->name;
+        int comp = 0;
+
+        nm = ( dynamic_cast< SimpleList * >(ent) )->name;
         while( prev != NULL && ( comp = strcmp( prev->name, nm ) ) < 0 ) {
             prev2 = prev;
             prev = prev->next;
