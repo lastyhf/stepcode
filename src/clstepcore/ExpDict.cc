@@ -736,7 +736,7 @@ const char * EnumTypeDescriptor::GenerateExpress( std::string & buf ) const {
     const char * desc = Description();
     const char * ptr = &( desc[16] );
     int all_comments = 1;
-
+    
     while( *ptr != '\0' ) {
         if( *ptr == ',' ) {
             buf.append( ",\n  " );
