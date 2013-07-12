@@ -965,7 +965,6 @@ initSelItems( const Type type, FILE * f )
 Linked_List
 ENTITYget_expanded_entities( Entity e, Linked_List l ) {
     Linked_List supers;
-    int super_cnt = 0;
     Entity super;
 
     if( ! LISTmember( l, ( Generic ) e ) ) {
@@ -973,6 +972,8 @@ ENTITYget_expanded_entities( Entity e, Linked_List l ) {
     }
 
     if( multiple_inheritance ) {
+        int super_cnt = 0;
+
         supers = ENTITYget_supertypes( e );
         LISTdo( supers, s, Entity )
         /* ignore the more than one supertype
@@ -1233,8 +1234,7 @@ void
 TYPEselect_lib_print_part_four( const Type type, FILE * f, Schema schema,
                                 Linked_List dups, char * n ) {
     char x[BUFSIZ];
-    int firsttime = 1;
-
+    
     fprintf( f, "\n    //  part 4\n" );
 
     LISTdo( SEL_TYPEget_items( type ), t, Type )
@@ -1314,7 +1314,6 @@ TYPEselect_lib_print_part_four( const Type type, FILE * f, Schema schema,
 
     fprintf( f, "SDAI_Select& %s::operator =( const SDAI_Select& o ) {\n", n );
 
-    firsttime = 1;
     LISTdo( SEL_TYPEget_items( type ), t, Type )
     strncpy( x, TYPEget_name( t ), BUFSIZ );
     fprintf( f, "    if ( o.CurrentUnderlyingType () == %s ) {\n",

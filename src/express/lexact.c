@@ -404,7 +404,8 @@ SCANprocess_string( const char * yytext ) {
 
 int
 SCANprocess_encoded_string( const char * yytext ) {
-    char * s, *d;   /* source, destination */
+    char * s;   /* source */
+    //char *d;   /* destination */
     int count;
 
     /* strip off quotes */
