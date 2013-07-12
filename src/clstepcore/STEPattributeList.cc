@@ -29,14 +29,15 @@ STEPattributeList::~STEPattributeList() {
 }
 
 STEPattribute & STEPattributeList::operator []( int n ) {
-    int x = 0;
     AttrListNode * a = ( AttrListNode * )head;
     int cnt =  EntryCount();
-    if( n < cnt )
+    if( n < cnt ) {
+        int x = 0;
         while( a && ( x < n ) ) {
             a = ( AttrListNode * )( a->next );
             x++;
         }
+    }
     if( a ) {
         return *( a->attr );
     }

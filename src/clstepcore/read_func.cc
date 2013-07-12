@@ -831,7 +831,6 @@ const char * ReadComment( std::string & ss, const char * s ) {
 ***************************/
 const char * ReadComment( istream & in, std::string & s ) {
     char c = '\0';
-    int commentLength = 0;
     in >> ws;
     in >> c;
 
