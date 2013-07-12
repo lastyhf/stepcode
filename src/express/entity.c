@@ -459,7 +459,7 @@ Variable ENTITYget_named_attribute( Entity entity, char * name ) {
 **  is returned.
 */
 int ENTITYget_attribute_offset( Entity entity, Variable attribute ) {
-    int         offset, value;
+    int offset;
 
     LISTdo( entity->u.entity->attributes, attr, Variable )
     if( attr == attribute ) {
@@ -469,6 +469,7 @@ int ENTITYget_attribute_offset( Entity entity, Variable attribute ) {
     offset = 0;
     LISTdo( entity->u.entity->supertypes, super, Entity )
     /*  if (OBJis_kind_of(super, Class_Entity)) {*/
+    int value;
     if( ( value = ENTITYget_attribute_offset( super, attribute ) ) != -1 ) {
         return value + offset;
     }
@@ -488,7 +489,7 @@ int ENTITYget_attribute_offset( Entity entity, Variable attribute ) {
 **      -1 is returned.
 */
 int ENTITYget_named_attribute_offset( Entity entity, char * name ) {
-    int         offset, value;
+    int offset;
 
     LISTdo( entity->u.entity->attributes, attr, Variable )
     if( streq( VARget_simple_name( attr ), name ) )
@@ -498,6 +499,7 @@ int ENTITYget_named_attribute_offset( Entity entity, char * name ) {
     offset = 0;
     LISTdo( entity->u.entity->supertypes, super, Entity )
     /*  if (OBJis_kind_of(super, Class_Entity)) {*/
+    int value;
     if( ( value = ENTITYget_named_attribute_offset( super, name ) ) != -1 ) {
         return value + offset;
     }

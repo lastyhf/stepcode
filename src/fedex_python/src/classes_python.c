@@ -605,8 +605,7 @@ LIBdescribe_entity( Entity entity, FILE * file, Schema schema ) {
     Linked_List list;
     int num_parent = 0;
     int num_derived_inverse_attr = 0;
-    int index_attribute = 0;
-
+    
     /* class name
      need to use new-style classes for properties to work correctly
     so class must inherit from object */
@@ -702,7 +701,7 @@ LIBdescribe_entity( Entity entity, FILE * file, Schema schema ) {
         // if inheritance, first write the inherited parameters
         list = ENTITYget_supertypes( entity );
         num_parent = 0;
-        index_attribute = 0;
+        int index_attribute = 0;
         if( ! LISTempty( list ) ) {
             LISTdo( list, e, Entity )
             /*  search attribute names for superclass */
@@ -956,7 +955,6 @@ ENTITYincode_print( Entity entity, FILE * file, Schema schema ) {
 void
 RULEPrint( Rule rule, FILES * files, Schema schema ) {
     char * n = RULEget_name( rule );
-    char * param_name;
     fprintf( files->lib, "\n####################\n # RULE %s #\n####################\n", n );
     /* write function definition */
     fprintf( files->lib, "%s = Rule()\n", n );
@@ -1101,8 +1099,6 @@ STATEMENTPrint( Statement s, int indent_level, FILE * file ) {
 
 void
 CASEout( struct Case_Statement_ *c, int level, FILE * file ) {
-    int len = 0;
-    int max_indent;
     int if_number = 0;
     //fprintf(file, "for case in switch(");
     //EXPRESSION_out( c->selector, 0 , file);
@@ -1694,10 +1690,8 @@ EXPRop_length( struct Op_Subexpression * oe ) {
 
 void
 WHEREPrint( Linked_List wheres, int level , FILE * file ) {
-    unsigned int max_indent = 0;
     int where_rule_number = 0;
-    char * rule_name;
-
+    
     python_indent( file, level );
 
     if( !wheres ) {
@@ -2181,10 +2175,8 @@ TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
          base [BUFSIZ],
          nm [BUFSIZ];
     Type i;
-    int where_rule_number = 0;
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
     if( TYPEis_enumeration( type ) && ( i = TYPEget_ancestor( type ) ) != NULL ) {
         /* If we're a renamed enum type, just print a few typedef's to the
         // original and some specialized create functions: */
@@ -2195,6 +2187,7 @@ TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
     }
 
     if( TYPEget_RefTypeVarNm( type, typename_buf, schema ) ) {
+        int where_rule_number = 0;
         char * output = FundamentalType( type, 0 );
         if( TYPEis_aggregate( type ) ) {
             fprintf( files->lib, "%s = ", TYPEget_name( type ) );

@@ -141,16 +141,16 @@ Severity SDAI_LOGICAL::ReadEnum( istream & in, ErrorDescriptor * err, int Assign
     }
 
     std::string str;
-    char c;
     char messageBuf[512];
     messageBuf[0] = '\0';
-
-    int validDelimiters = 1;
 
     in >> ws; // skip white space
 
     if( in.good() ) {
+        char c;
+
         in.get( c );
+        int validDelimiters = 1;
         if( c == '.' || isalpha( c ) ) {
             if( c == '.' ) {
                 in.get( c ); // push past the delimiter
@@ -417,17 +417,18 @@ Severity SDAI_Enum::ReadEnum( istream & in, ErrorDescriptor * err, int AssignVal
     }
 
     std::string str;
-    char c;
+
     char messageBuf[512];
     messageBuf[0] = '\0';
-
-    int validDelimiters = 1;
 
     in >> ws; // skip white space
 
     if( in.good() ) {
+        char c;
+
         in.get( c );
         if( c == '.' || isalpha( c ) ) {
+            int validDelimiters = 1;
             if( c == '.' ) {
                 in.get( c ); // push past the delimiter
                 // since found a valid delimiter it is now invalid until the

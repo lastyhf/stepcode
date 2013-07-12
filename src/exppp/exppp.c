@@ -595,12 +595,13 @@ static void copy_file_chunk( char * filename, int start, int end, int level ) {
 
 void
 RULE_out( Rule r, int level ) {
-    int i = 0;
 
     first_newline();
     exppp_ref_info( &r->symbol );
 
     if( exppp_preserve_comments == false ) {
+        int i = 0;
+
         raw( "%*sRULE %s FOR (", level, "", r->symbol.name );
 
         LISTdo( r->u.rule->parameters, p, Variable )
@@ -1112,7 +1113,6 @@ ENTITYunique_out( Linked_List u, int level ) {
     int i;
     int max_indent;
     Symbol * sym;
-    int length;
 
     if( !u ) {
         return;
@@ -1124,7 +1124,8 @@ ENTITYunique_out( Linked_List u, int level ) {
     max_indent = 0;
     LISTdo( u, list, Linked_List )
     if( 0 != ( sym = ( Symbol * )LISTget_first( list ) ) ) {
-        length = strlen( sym->name );
+
+        int length = strlen( sym->name );
         if( length > max_indent ) {
             max_indent = length;
         }
@@ -1160,7 +1161,6 @@ ENTITYunique_out( Linked_List u, int level ) {
 
 void
 ENTITYinverse_out( Linked_List attrs, int level ) {
-    int length;
 
     int max_indent;
 
@@ -1168,7 +1168,7 @@ ENTITYinverse_out( Linked_List attrs, int level ) {
     max_indent = 0;
     LISTdo( attrs, v, Variable )
     if( v->inverse_symbol ) {
-        length = strlen( v->name->symbol.name );
+        int length = strlen( v->name->symbol.name );
         if( length > max_indent ) {
             max_indent = length;
         }
@@ -1206,7 +1206,6 @@ ENTITYinverse_out( Linked_List attrs, int level ) {
 
 void
 ENTITYattrs_out( Linked_List attrs, int derived, int level ) {
-    int length;
 
     int max_indent;
 
@@ -1218,7 +1217,7 @@ ENTITYattrs_out( Linked_List attrs, int derived, int level ) {
     }
     if( ( derived && v->initializer ) ||
             ( !derived && !v->initializer ) ) {
-        length = EXPRlength( v->name );
+        int length = EXPRlength( v->name );
         if( length > max_indent ) {
             max_indent = length;
         }

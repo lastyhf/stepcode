@@ -1315,7 +1315,6 @@ static void ENTITYresolve_subtypes( Entity e ) {
 }
 
 void ENTITYresolve_types( Entity e ) {
-    int i;
     Qualified_Attr * ref;
     Variable attr;
     int failed = 0;
@@ -1341,7 +1340,7 @@ void ENTITYresolve_types( Entity e ) {
     /* where "entity" represents a supertype (only, I believe) */
 
     LISTdo( e->u.entity->unique, unique, Linked_List )
-    i = 0;
+    int i = 0;
     LISTdo_links( unique, reflink )
     /* skip first which is always the label (or NULL if no label) */
     i++;

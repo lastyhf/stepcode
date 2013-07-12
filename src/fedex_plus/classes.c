@@ -1064,7 +1064,7 @@ void ENTITYhead_print( Entity entity, FILE * file, Schema schema ) {
     Entity super = 0;
 
     strncpy( entnm, ENTITYget_classname( entity ), BUFSIZ );
-    entnm[BUFSIZ-1] = '\0';
+    entnm[BUFSIZ - 1] = '\0';
     fprintf( file, "\nclass %s  :  ", entnm );
 
     /* inherit from either supertype entity class or root class of
@@ -1510,7 +1510,6 @@ void LIBstructor_print( Entity entity, FILE * file, Schema schema ) {
     char attrnm [BUFSIZ];
 
     Linked_List list;
-    int super_cnt = 0;
     Entity principalSuper = 0;
 
     const char * entnm = ENTITYget_classname( entity );
@@ -1527,6 +1526,7 @@ void LIBstructor_print( Entity entity, FILE * file, Schema schema ) {
         fprintf( file, "\n" );
         list = ENTITYget_supertypes( entity );
         if( ! LISTempty( list ) ) {
+            int super_cnt = 0;
             if( LISTget_length( list ) > 1 ) {
                 fprintf( file, "#if 1\n" );
                 fprintf( file, "    int attrFlags[3];\n" );
@@ -1700,20 +1700,19 @@ void LIBstructor_print_w_args( Entity entity, FILE * file, Schema schema ) {
     Linked_List attr_list;
     Type t;
     char attrnm [BUFSIZ];
-
+    int first = 1;
     Linked_List list;
     int super_cnt = 0;
 
     /* added for calling parents constructor if there is one */
     char parentnm [BUFSIZ];
     char * parent = 0;
-    Entity parentEntity = 0;
 
     const char * entnm;
     int count = attr_count;
-    int first = 1;
 
     if( multiple_inheritance ) {
+        Entity parentEntity = 0;
         list = ENTITYget_supertypes( entity );
         if( ! LISTempty( list ) ) {
             parentEntity = ( Entity )LISTpeek_first( list );
@@ -2002,7 +2001,6 @@ void print_typechain( FILES * files, const Type t, char * buf, Schema schema, co
     /* the type_count variable is there for debugging purposes  */
 
     const char * ctype = TYPEget_ctype( t );
-    Type base = 0;
     int count = type_count++;
     char name_buf[MAX_LEN];
     int s;
@@ -2048,6 +2046,8 @@ void print_typechain( FILES * files, const Type t, char * buf, Schema schema, co
     if( TYPEget_RefTypeVarNm( t, name_buf, schema ) ) {
         fprintf( files->init, "        %s%d->ReferentType(%s);\n", TD_PREFIX, count, name_buf );
     } else {
+        Type base = 0;
+
         /* no name, recurse */
         char callee_buffer[MAX_LEN];
         if( TYPEget_body( t ) ) {
@@ -2434,7 +2434,6 @@ void ENTITYprint_new( Entity entity, FILES * files, Schema schema, int externMap
     char * ptr, *ptr2;
     char * uniqRule, *uniqRule_formatted;
     Linked_List uniqs;
-    int i;
 
     fprintf( files->create, "    %s::%s%s = new EntityDescriptor(\n        ",
              SCHEMAget_name( schema ), ENT_PREFIX, ENTITYget_name( entity ) );
@@ -2566,7 +2565,7 @@ void ENTITYprint_new( Entity entity, FILES * files, Schema schema, int externMap
          * change EntityDescriptor::generate_express() to generate the UNIQUE clause
         */
         LISTdo( uniqs, list, Linked_List )
-        i = 0;
+        int i = 0;
         fprintf( files->create, "        ur = new Uniqueness_rule(\"" );
         LISTdo( list, v, Variable )
         i++;
@@ -3214,7 +3213,6 @@ void TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
     Type i;
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
     /* define type descriptor pointer */
     /*  in source - declare the real definition of the pointer */
     /*  i.e. in the .cc file                                   */
@@ -3289,7 +3287,6 @@ static void printEnumCreateBody( FILE * lib, const Type type ) {
     char tdnm[BUFSIZ];
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
     fprintf( lib, "\nSDAI_Enum *\ncreate_%s ()\n{\n", nm );
     fprintf( lib, "    return new %s( \"\", %s );\n}\n\n", nm, tdnm );
 }
@@ -3306,7 +3303,6 @@ static void printEnumAggrCrBody( FILE * lib, const Type type ) {
     char tdnm[BUFSIZ];
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
-
     fprintf( lib, "\nSTEPaggregate *\ncreate_%s_agg ()\n{\n", n );
     fprintf( lib, "    return new %s_agg( %s );\n}\n", n, tdnm );
 }
@@ -3382,7 +3378,6 @@ void TYPEprint_nm_ft_desc( Schema schema, const Type type, FILE * f, char * endC
 void TYPEprint_new( const Type type, FILE * create, Schema schema ) {
     Linked_List wheres;
     char * whereRule, *whereRule_formatted = NULL;
-    size_t whereRule_formatted_size = 0;
     char * ptr, *ptr2;
 
     Type tmpType = TYPEget_head( type );
@@ -3487,7 +3482,7 @@ void TYPEprint_new( const Type type, FILE * create, Schema schema ) {
     /* add the type to the Schema dictionary entry */
     fprintf( create, "        %s::schema->AddType(%s);\n", SCHEMAget_name( schema ), TYPEtd_name( type ) );
 
-
+    size_t whereRule_formatted_size = 0;
     wheres = type->where;
 
     if( wheres ) {
@@ -3512,9 +3507,9 @@ void TYPEprint_new( const Type type, FILE * create, Schema schema ) {
             strcat( whereRule_formatted, ": (" );
             ptr = whereRule_formatted + strlen( whereRule_formatted );
             while( *ptr2 ) {
-                if( *ptr2 == '\n' )
+                if( *ptr2 == '\n' ) {
                     ;
-                else if( *ptr2 == '\\' ) {
+                } else if( *ptr2 == '\\' ) {
                     *ptr = '\\';
                     ptr++;
                     *ptr = '\\';
@@ -3538,9 +3533,9 @@ void TYPEprint_new( const Type type, FILE * create, Schema schema ) {
             ptr = whereRule_formatted + strlen( whereRule_formatted );
 
             while( *ptr2 ) {
-                if( *ptr2 == '\n' )
+                if( *ptr2 == '\n' ) {
                     ;
-                else if( *ptr2 == '\\' ) {
+                } else if( *ptr2 == '\\' ) {
                     *ptr = '\\';
                     ptr++;
                     *ptr = '\\';
