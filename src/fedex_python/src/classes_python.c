@@ -397,7 +397,7 @@ ENTITYhead_print( Entity entity, FILE * file, Schema schema ) {
     Entity super = 0;
 
     strncpy( entnm, ENTITYget_classname( entity ), BUFSIZ );
-
+    entnm[BUFSIZ-1] = '\0';
     /* DAS print all the attr descriptors and inverse attr descriptors for an
        entity as extern defs in the .h file. */
     LISTdo( ENTITYget_attributes( entity ), v, Variable )
@@ -2177,11 +2177,15 @@ TYPEprint_descriptions( const Type type, FILES * files, Schema schema ) {
     Type i;
 
     strncpy( tdnm, TYPEtd_name( type ), BUFSIZ );
+    tdnm[BUFSIZ-1] = '\0';
+    
     if( TYPEis_enumeration( type ) && ( i = TYPEget_ancestor( type ) ) != NULL ) {
         /* If we're a renamed enum type, just print a few typedef's to the
         // original and some specialized create functions: */
         strncpy( base, StrToLower( EnumName( TYPEget_name( i ) ) ), BUFSIZ );
+        base[BUFSIZ-1]='\0';
         strncpy( nm, StrToLower( EnumName( TYPEget_name( type ) ) ), BUFSIZ );
+        nm[BUFSIZ-1]='\0';
         fprintf( files->lib, "%s = %s\n", nm, base );
         return;
     }
