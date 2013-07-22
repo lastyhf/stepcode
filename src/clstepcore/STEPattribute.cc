@@ -91,7 +91,7 @@ Severity STEPattribute::StrToVal( const char * s, InstMgr * instances, int addFi
         if( *tmpSptr == '*' ) {
             tmpSptr++;
             char tmpC;
-            int charsFound = sscanf( tmpSptr, "%c", &tmpC );
+            int charsFound = sscanf( tmpSptr, "%1c", &tmpC );
             if( charsFound == EOF ) { // no non-white chars followed the *
                 return SEVERITY_NULL;
             }
