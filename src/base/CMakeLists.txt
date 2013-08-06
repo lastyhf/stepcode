@@ -32,3 +32,10 @@ if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/judy/src" )
     file( REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/judy.tar.gz" )
     message( "Judy array source code extracted." )
 endif(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/judy/src" )
+
+install(FILES
+        sc_benchmark.h
+        sc_memmgr.h
+        sc_getopt.h
+        sc_trace_fprintf.h
+        DESTINATION ${INCLUDE_INSTALL_DIR}/base)
