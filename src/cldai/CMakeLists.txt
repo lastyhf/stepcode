@@ -36,3 +36,17 @@ include_directories(
 )
 
 SC_ADDLIB(stepdai "${LIBSTEPDAI_SRCS}" "steputils;base")
+
+install(FILES
+	sdaiApplication_instance_set.h
+	sdaiBinary.h
+	sdaiDaObject.h
+	sdaiEntity_extent.h
+	sdaiEntity_extent_set.h
+	sdaiEnum.h
+	sdaiModel_contents.h
+	sdaiModel_contents_list.h
+	sdaiObject.h                                           
+	sdaiSession_instance.h
+	sdaiString.h
+	DESTINATION ${INCLUDE_INSTALL_DIR}/cldai)
