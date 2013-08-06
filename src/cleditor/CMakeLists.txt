@@ -28,3 +28,13 @@ include_directories(
 )
 
 SC_ADDLIB(stepeditor "${LIBSTEPEDITOR_SRCS}" "stepcore;stepdai;steputils;base")
+
+install(FILES
+	STEPfile.h
+	SdaiHeaderSchema.h
+	SdaiHeaderSchemaClasses.h
+	SdaiSchemaInit.h
+	cmdmgr.h
+	editordefines.h
+	seeinfodefault.h
+	DESTINATION ${INCLUDE_INSTALL_DIR}/cleditor)
